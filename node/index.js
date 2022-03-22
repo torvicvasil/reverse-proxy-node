@@ -6,7 +6,8 @@ const config = {
    host: 'db',
    user: 'root',
    password: 'root',
-   database:'nodedb'
+   database:'nodedb',
+   
 };
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
@@ -16,24 +17,18 @@ connection.query(sql)
 connection.end()
 
 const con = mysql.createConnection(config)
-con.connect(function(err) {
-    if (err) throw err;
-    con.query("SELECT * FROM people", function (err, result, fields) {
-      if (err) throw err;
+con.query("SELECT * FROM people", function (err, result, fields) {
       console.log(result);
-        app.get('/consulta', (req,res) => {
-            res.send(result)
-        })
-        app.get('/', (req,res) => {
-            res.send('<h1>Full Cycle Rocks!</h1>')
+         app.get('/consulta', (req,res) => {
+             res.send(result)
         })
     });
-  });
 
+con.end()
 
-
-
-
+app.get('/', (req,res) => {
+  res.send('<h1>Full Cycle Rocks!</h1>')
+})
 
 app.listen(port, ()=> {
     console.log('Rodando na porta ' + port)
